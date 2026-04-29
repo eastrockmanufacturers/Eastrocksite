@@ -3,7 +3,8 @@ services:
     name: eastrock-backend
     env: node
     plan: free
-    repo: https://github.com/eastrockmanufacturers/Eastrocksite
+    # Use owner/repo format (required by Render Blueprints)
+    repo: eastrockmanufacturers/Eastrocksite
     branch: gh-pages
     buildCommand: npm install
     startCommand: npm start
