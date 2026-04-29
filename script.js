@@ -102,7 +102,11 @@ form.addEventListener('submit', e => {
     message: form.message.value,
   };
 
-  fetch('/api/contact', {
+  const meta = document.querySelector('meta[name="api-base"]');
+  const base = (meta && meta.content) ? meta.content.replace(/\/$/, '') : '';
+  const endpoint = base ? base + '/api/contact' : '/api/contact';
+
+  fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -124,7 +128,9 @@ form.addEventListener('submit', e => {
           successMsg.style.display = 'none';
         }, 4000);
       } else {
-        throw new Error('send_failed');
+        // Try to show server error message
+        const errMsg = (res && res.error) ? res.error : 'send_failed';
+        throw new Error(errMsg);
       }
     })
     .catch(err => {
