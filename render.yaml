@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: eastrock-backend
+    env: node
+    plan: free
+    repo: https://github.com/eastrockmanufacturers/Eastrocksite
+    branch: gh-pages
+    buildCommand: npm install
+    startCommand: npm start
