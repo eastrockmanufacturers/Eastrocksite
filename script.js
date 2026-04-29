@@ -87,29 +87,52 @@ form.addEventListener('submit', e => {
   const btn = form.querySelector('.submit-btn');
   const btnText = btn.querySelector('.btn-text');
   const btnArrow = btn.querySelector('.btn-arrow');
-
   // Loading state
   btnText.textContent = 'Sending...';
   btn.disabled = true;
   btn.style.opacity = '0.7';
 
-  // Simulate send (replace with your actual backend / EmailJS / Formspree)
-  setTimeout(() => {
-    btnText.textContent = 'Sent!';
-    btnArrow.textContent = '✓';
-    btn.style.background = '#4ade80';
-    successMsg.style.display = 'block';
-    form.reset();
+  const data = {
+    name: form.name.value,
+    company: form.company.value,
+    phone: form.phone.value,
+    'product-type': form['product-type'].value,
+    quantity: form.quantity.value,
+    size: form.size.value,
+    message: form.message.value,
+  };
 
-    setTimeout(() => {
-      btnText.textContent = 'Send Inquiry';
-      btnArrow.textContent = '→';
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+    .then(r => r.json())
+    .then(res => {
+      if (res && res.ok) {
+        btnText.textContent = 'Sent!';
+        btnArrow.textContent = '✓';
+        btn.style.background = '#4ade80';
+        successMsg.style.display = 'block';
+        form.reset();
+        setTimeout(() => {
+          btnText.textContent = 'Send Inquiry';
+          btnArrow.textContent = '→';
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.style.background = '';
+          successMsg.style.display = 'none';
+        }, 4000);
+      } else {
+        throw new Error('send_failed');
+      }
+    })
+    .catch(err => {
+      console.error('Send error', err);
+      btnText.textContent = 'Try again';
       btn.disabled = false;
       btn.style.opacity = '1';
-      btn.style.background = '';
-      successMsg.style.display = 'none';
-    }, 4000);
-  }, 1200);
+    });
 });
 
 /* ─── SMOOTH ACTIVE NAV LINK ────────────────────────────────── */
