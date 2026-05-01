@@ -81,7 +81,9 @@ window.addEventListener('load', () => {
 const form = document.getElementById('contact-form');
 const successMsg = document.getElementById('form-success');
 
-form.addEventListener('submit', e => {
+// If the contact form has been replaced (for example with an embedded Google Form), skip wiring the JS
+if (form) {
+  form.addEventListener('submit', e => {
   e.preventDefault();
 
   const btn = form.querySelector('.submit-btn');
@@ -139,7 +141,8 @@ form.addEventListener('submit', e => {
       btn.disabled = false;
       btn.style.opacity = '1';
     });
-});
+  });
+}
 
 /* ─── SMOOTH ACTIVE NAV LINK ────────────────────────────────── */
 const sections = document.querySelectorAll('section[id]');
