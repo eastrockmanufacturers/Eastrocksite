@@ -368,7 +368,7 @@ body:has(button:hover) .cursor-follower {
 }
 
 /* ─── SECTIONS ─────────────────────────────────────────────── */
-.section { padding: 7rem 0; }
+.section { padding: 7rem 0; scroll-margin-top: 6.5rem; }
 .section-header { margin-bottom: 4rem; }
 .section-tag {
   display: block;
