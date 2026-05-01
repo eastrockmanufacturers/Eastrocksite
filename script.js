@@ -225,3 +225,19 @@ const statObserver = new IntersectionObserver((entries) => {
 
 const heroStats = document.querySelector('.hero-stats');
 if (heroStats) statObserver.observe(heroStats);
+
+// Prevent page from jumping to an in-page anchor (e.g. #contact) when the user reloads the page.
+// We only clear the hash on a full reload to preserve normal in-page navigation.
+window.addEventListener('load', () => {
+  try {
+    const navEntries = performance.getEntriesByType ? performance.getEntriesByType('navigation') : [];
+    const navType = (navEntries && navEntries[0] && navEntries[0].type) || (performance.navigation && performance.navigation.type === 1 ? 'reload' : '');
+    if (navType === 'reload' && window.location.hash) {
+      // Remove fragment without adding a history entry and scroll to top
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      window.scrollTo(0, 0);
+    }
+  } catch (e) {
+    // ignore if performance API not available
+  }
+});
