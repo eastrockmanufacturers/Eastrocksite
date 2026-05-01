@@ -285,6 +285,7 @@ body:has(button:hover) .cursor-follower {
 .hero-stats {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   margin-top: 5rem;
   max-width: 1200px;
@@ -292,14 +293,16 @@ body:has(button:hover) .cursor-follower {
   padding-top: 2rem;
   border-top: 1px solid var(--border);
   flex-wrap: wrap;
+  text-align: center;
 }
-.stat { text-align: left; }
+.stat { flex: 0 0 auto; }
 .stat-num {
   display: block;
   font-family: var(--font-display);
   font-size: 2.2rem;
   color: var(--accent);
   line-height: 1;
+  text-align: center;
 }
 .stat-label {
   display: block;
