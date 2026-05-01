@@ -210,6 +210,8 @@ const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.querySelectorAll('.stat-num').forEach(num => {
+        // Skip animation if explicitly marked (e.g., 'Free')
+        if (num.getAttribute('data-no-count') === 'true') return;
         const text = num.textContent;
         const numericMatch = text.match(/[\d.]+/);
         if (numericMatch && !text.includes('h') && !text.includes('MOQ')) {

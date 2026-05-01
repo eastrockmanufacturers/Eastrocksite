@@ -295,7 +295,7 @@ body:has(button:hover) .cursor-follower {
   flex-wrap: wrap;
   text-align: center;
 }
-.stat { flex: 0 0 auto; }
+.stat { flex: 1 1 180px; min-width: 140px; }
 .stat-num {
   display: block;
   font-family: var(--font-display);
